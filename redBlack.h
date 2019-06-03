@@ -70,7 +70,7 @@ No* removeBST(No* raiz){
         return raiz->esquerda;
     No *atual;
 
-    for (atual = raiz; atual->esquerda == NULL && atual->direita == NULL; atual->esquerda);
+    for (atual = raiz; atual->esquerda == NULL && atual->direita == NULL;atual = atual->esquerda);
 
     atual->super->esquerda = NULL;
     atual->esquerda = raiz->direita;
@@ -82,8 +82,9 @@ No* removeBST(No* raiz){
 No* buscaChave(No* raiz, int chave){
 	if (raiz == NULL)
 	    return raiz;
-    else if(raiz->chave == chave)
+    else if(raiz->chave == chave){
         return removeBST(raiz);
+	}
 
 	if (chave < raiz->chave){
 		raiz->esquerda = buscaChave(raiz->esquerda, chave);
@@ -261,43 +262,43 @@ void ArvRB::emOrdem()	 { ordenaArv(raiz);}
 void ArvRB::ordemNivel() { ordenaNivel(raiz); }
 
 
-int main(){
-	ArvRB * arvore = new ArvRB;
-	int escolha=-1;
-	int novaChave;
-	int tipoImpressao = -1;
-	// do{
-	// 	// cout << "\033[2J\033[1;1H";
-	// 	cout<<endl;
-	// 	if(tipoImpressao==0)
-	// 		arvore->emOrdem();
-	// 	else
-	// 		arvore->ordemNivel();
-	// 	cout<<endl;
-	// 	cout<<"\n1 - Inserir novo numero\n"<<
-    //     "2 - Mostrar arvore por nivel\n"<<
-    //     "3 - Mostrar arvore em ordem\n"<<
-    //     "4 - Limpar arvore\n"<<
-    //     "Escolha uma opcao: ";
-	// 	cin>>escolha;
-	// 	cout<<endl;
-	// 	switch(escolha){
-	// 		case 1:	cout<<"Digite o numero: ";
-	// 				cin>>novaChave;
-	// 				arvore->inserir(novaChave);
-	// 				arvore->ordemNivel();
-	// 				break;
-	// 		case 2: tipoImpressao = 1;
-	// 				break;
-	// 		case 3: tipoImpressao = 0;			
-	// 				break;
-	// 		case 4: delete arvore;
-	// 				ArvRB * arvore = new ArvRB;
-	// 				break;
-	// 		}
-	// }while(escolha!=0);
-
-	return 0;
-}
+//int main(){
+//	ArvRB * arvore = new ArvRB;
+//	int escolha=-1;
+//	int novaChave;
+//	int tipoImpressao = -1;
+//	// do{
+//	// 	// cout << "\033[2J\033[1;1H";
+//	// 	cout<<endl;
+//	// 	if(tipoImpressao==0)
+//	// 		arvore->emOrdem();
+//	// 	else
+//	// 		arvore->ordemNivel();
+//	// 	cout<<endl;
+//	// 	cout<<"\n1 - Inserir novo numero\n"<<
+//    //     "2 - Mostrar arvore por nivel\n"<<
+//    //     "3 - Mostrar arvore em ordem\n"<<
+//    //     "4 - Limpar arvore\n"<<
+//    //     "Escolha uma opcao: ";
+//	// 	cin>>escolha;
+//	// 	cout<<endl;
+//	// 	switch(escolha){
+//	// 		case 1:	cout<<"Digite o numero: ";
+//	// 				cin>>novaChave;
+//	// 				arvore->inserir(novaChave);
+//	// 				arvore->ordemNivel();
+//	// 				break;
+//	// 		case 2: tipoImpressao = 1;
+//	// 				break;
+//	// 		case 3: tipoImpressao = 0;			
+//	// 				break;
+//	// 		case 4: delete arvore;
+//	// 				ArvRB * arvore = new ArvRB;
+//	// 				break;
+//	// 		}
+//	// }while(escolha!=0);
+//
+//	return 0;
+//}
 
 #endif

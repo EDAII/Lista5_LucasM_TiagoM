@@ -45,7 +45,7 @@ void ordenaArv(No *raiz){
 		return;
 
 	ordenaArv(raiz->esquerda);
-	cout << raiz->chave << " ";
+	// cout << raiz->chave << " ";
 	ordenaArv(raiz->direita);
 }
 
@@ -53,7 +53,7 @@ No* inserirBST(No* raiz, No* pt){
 	if (raiz == NULL)
 	return pt;
 
-	if (pt->chave < raiz->chave){
+	if (pt->chave <= raiz->chave){
 		raiz->esquerda = inserirBST(raiz->esquerda, pt);
 		raiz->esquerda->super = raiz;
 	}
@@ -84,7 +84,7 @@ No* buscaChave(No* raiz, int chave){
 	if (raiz == NULL)
 	    return NULL;
     else if(raiz->chave == chave){
-		cout << raiz->chave << endl;
+		// cout << raiz->chave << endl;
         return raiz;
 	}
 
@@ -259,45 +259,5 @@ No* ArvRB::busca(const int chave){
 
 void ArvRB::emOrdem()	 { ordenaArv(raiz);}
 void ArvRB::ordemNivel() { ordenaNivel(raiz); }
-
-
-//int main(){
-//	ArvRB * arvore = new ArvRB;
-//	int escolha=-1;
-//	int novaChave;
-//	int tipoImpressao = -1;
-//	// do{
-//	// 	// cout << "\033[2J\033[1;1H";
-//	// 	cout<<endl;
-//	// 	if(tipoImpressao==0)
-//	// 		arvore->emOrdem();
-//	// 	else
-//	// 		arvore->ordemNivel();
-//	// 	cout<<endl;
-//	// 	cout<<"\n1 - Inserir novo numero\n"<<
-//    //     "2 - Mostrar arvore por nivel\n"<<
-//    //     "3 - Mostrar arvore em ordem\n"<<
-//    //     "4 - Limpar arvore\n"<<
-//    //     "Escolha uma opcao: ";
-//	// 	cin>>escolha;
-//	// 	cout<<endl;
-//	// 	switch(escolha){
-//	// 		case 1:	cout<<"Digite o numero: ";
-//	// 				cin>>novaChave;
-//	// 				arvore->inserir(novaChave);
-//	// 				arvore->ordemNivel();
-//	// 				break;
-//	// 		case 2: tipoImpressao = 1;
-//	// 				break;
-//	// 		case 3: tipoImpressao = 0;			
-//	// 				break;
-//	// 		case 4: delete arvore;
-//	// 				ArvRB * arvore = new ArvRB;
-//	// 				break;
-//	// 		}
-//	// }while(escolha!=0);
-//
-//	return 0;
-//}
 
 #endif

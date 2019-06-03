@@ -34,7 +34,7 @@ public:
 	ArvRB() { raiz = NULL; }
 	~ArvRB(){};
 	void inserir(const int &n);
-	void remove(const int n);
+	No* busca(const int n);
 	void emOrdem();
 	void corrigirEstrutura(No *&, No *&);
 	void ordemNivel();
@@ -80,23 +80,22 @@ No* removeBST(No* raiz){
 }
 
 No* buscaChave(No* raiz, int chave){
+	// cout << "Entrou" << endl;
 	if (raiz == NULL)
-	    return raiz;
+	    return NULL;
     else if(raiz->chave == chave){
-        return removeBST(raiz);
+		cout << raiz->chave << endl;
+        return raiz;
 	}
 
-	if (chave < raiz->chave){
+	if (chave <= raiz->chave) {
+		// cout << "raiz equerda" << endl;
 		raiz->esquerda = buscaChave(raiz->esquerda, chave);
-        if (raiz->esquerda != NULL)
-    		raiz->esquerda->super = raiz;
 	}
 	else if (chave > raiz->chave){
+		// cout << "raiz direita" << endl;
 		raiz->direita = buscaChave(raiz->direita, chave);
-        if (raiz->direita != NULL)
-    		raiz->direita->super = raiz;
 	}
-
 	return raiz;
 }
 
@@ -252,10 +251,10 @@ void ArvRB::inserir(const int &chave){
 	corrigirEstrutura(raiz, pt);
 }
 
-void ArvRB::remove(const int chave){
-	raiz = buscaChave(raiz, chave);
+No* ArvRB::busca(const int chave){
+	No* busca = buscaChave(raiz, chave);
 
-	// corrigirEstrutura(raiz, pt);
+	return busca;
 }
 
 void ArvRB::emOrdem()	 { ordenaArv(raiz);}

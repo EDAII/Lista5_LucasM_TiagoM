@@ -6,83 +6,160 @@
 using namespace std;
 
 template<typename T>
-struct Node {
-	T value;
-	Node* Left;
-	Node* Right;
-	Node* Father;
-	int High;
-
-	Node (T value, Node* Left, Node* Right, Node* Father){
-		this->value = value;
-		this->Left = Left;
-		this->Right = Right;
-		this->Father = Father;
-	}
-
-	Node (T value) {
-		this->value = value;
-		Left = NULL;
-		Right = NULL;
-		Father = NULL;
-	}
-	Node (){
-	}
-};
-
-
-template<typename T>
 class AVLTree {
+
 	private:	
 
-		Node<T>* search(T value, Node<T>* node){
-			if (node->value == value){
-				return node;
+	struct Node {
+		T info;
+		int hight;
+		Node *left, *right;
+	};
+
+	Node *root;
+
+	void delete_by_mergeing(Node** n){
+		auto node = *n;
+
+		if(node == nullptr) return;
+
+		if(node->right == nullptr){
+			*n = node->left;
+		}else if(node->left == nullptr){
+			*n = node->right;
+		}
+		else {
+			auto temp = node->left;
+
+			while(temp->right){
+				temp = temp->right;
 			}
-			if (value <= node->value && node->Left != NULL){
-				return search(value, node->Left);
-			}
-			if (value > node->value && node->Right != NULL){
-				return search(value, node->Right);
-			}
-			return NULL;
+
+			temp->right = node->right;
+			*n = node->left;
+		}
+		delete node;
+	}
+
+	int size(const Node *node) const {
+		return node ? size(node->left) + size(node->right) + 1 : 0;
+	}
+
+	bool search(Node *node, const T& info) const {
+		while(node){
+			if(info == node->info) return true;
+
+			else if (info < node->info) node = node->left;
+
+			else node = node->right;
 		}
 
-		int HighNode(Node<T>* node){
-			if (node == NULL){
-				return -1;
-			}
-			return node->High;
-		}
+		return false;
 
-		int Balance(Node<T>* node){
-			return (HighNode(node->Left) - HighNode(node->Right));
+	}
+
+	int hightNode(Node *node) {
+		if(node == nullptr) return -1;
+
+		return node->hight;
+	}
+
+	int balanceFactorNode(Node *node){
+		return abs(hightNode(node->left) - hightNode(node->right));
+	}
+
+	void RotationLL(Node *node){
+		auto n = (*node)->left;
+
+		(*node)->left = n->right;
+		n->right = *node;
+		(*node)->hight = max(hightNode((*node)->left), hightNode((*node)->right)) + 1;
+
+		n->hight = max(hightNode(n->left, (*node)->hight)) + 1;
+		*node = n;
+	}
+
+	void RotationRR(Node *node){
+		auto n = (*node)->right;
+
+		(*node)->right = n->left;
+		n->left = (*node);
+		(*node)->hight = max(hightNode((*node)->left), hightNode((*node)->right)) + 1;
+
+		n->hight = max(hightNode(n->right), (*node)->hight) + 1;
+		(*node) = n;
+	}
+
+	void RotationLR (Node *node){
+		RotationRR(&(*node)->left);
+		RotationLL(node);
+	}
+
+	void RotationRL(Node *node){
+		RotationLL(&(*node)->right);
+		RotationRR(node);
+	}
+
+	void insert(const T& info, Node *n){
+
+		Node *node = n;
+
+		if(!n){
+			node = new Node {info, 0, nullptr, nullptr};
+			n = node;
+			return;
+		}else if(info <= n->info){
+			insert(info, n->left);
+
+			if(balanceFactorNode(node) >= 2){
+				if(info <= (*n)->left->info){
+					RotationLL(n);
+				}else{
+					RotationLR(n);
+				}
+			}
+
+		}else{
+			insert(info, n->right);
+
+			if(balanceFactorNode(node) >= 2){
+				if(info > (*n)->right->info){
+					RotationRR(*n);
+				}else{
+					RotationRL(*n);
+				}
+			}
 		}
+		
+		node->hight = max(hightNode(node->left), hightNode(node->right)) + 1;
+		return;
+	}
 
 	public:
-		Node<T>* Root;
-		size_t size;
 
-		AVLTree(){
-			Root = NULL;
-			size=0;
-		}
-		Node<T>* find(T value){
-			cout << "Valor buscado " << value << endl;
+	AVLTree() : root(nullptr) {}
 
-			cout << "Root " << (*Root).value << endl; 
-			
-			return search(value, Root);	
-			cout << "Saiu da busca" << endl;
-		}
-		void insert(T value){
-			if(size == 0){
-				Node<T> aux(value);
-				Root = &aux;
-				size++;
-				cout << "Root " << (*Root).value << endl; 
+	int size() const { return size(root); }
+
+	void insert(const T& info){ return insert(info, root); }
+
+	void erase(const T& info){
+		Node** node = &root;
+
+		while(*node){
+			if((*node)->info == info) break;
+
+			if(info < (*node)->info){
+				node = &(*node)->left;
+			}else{
+				node = &(*node)->right;
 			}
 		}
+		delete_by_mergeing(node);
+	}
+
+	bool search(const T& info) { return search(root, info); }
+
 };
 
 #endif

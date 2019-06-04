@@ -1,0 +1,12 @@
+Inserção de 500 itens
+Busca de 250 itens
+
+Busca em vector com ordenação utilizando o padrão nativo do c++
+Tempo para inserçao: 0 ms;
+Tempo para busca: 0 ms;
+Tempo total para operações: 0 ms;
+
+Árvore Red-Black
+Tempo para inserçao: 0 ms;
+Tempo para busca: 0 ms;
+Tempo total para operações: 0 ms;

@@ -1,0 +1,9 @@
+Inserção de 500.000.000 itens
+Busca de 250.000.000 itens
+
+Busca em vector com ordenação utilizando o padrão nativo do c++
+Tempo para inserçao: 306.083 ms;
+Tempo para busca: 492.737 ms;
+Tempo total para operações: 798.820 ms;
+
+Árvore Red-Black

@@ -1,0 +1,13 @@
+
+Inserção de 100.000 itens
+Busca de 50.000 itens
+
+Árvore Red-Black
+Tempo para inserçao: 53 ms;
+Tempo para busca: 17 ms;
+Tempo total para operações: 70 ms;
+
+Busca em lista duplamente encadeada com ordenação utilizando o padrão nativo do c++
+Tempo para inserçao: 39 ms;
+Tempo para busca: 14 ms;
+Tempo total para operações: 53 ms;

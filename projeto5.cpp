@@ -49,7 +49,6 @@ int main(){
 
     // scanf("%d", &busca);
 
-    cout << endl;
     printf("Inserção de %'d itens\n", insercao);
     printf("Busca de %'d itens\n", busca);
     cout << endl;
@@ -74,28 +73,7 @@ int main(){
     clock_t Ticks[2];
     int tempo[2];
 
-    cout << "Árvore Red-Black" << endl;
-
-    Ticks[0] = clock();
-    for (int i=0; i<insercoes.size(); i++){
-		arvore->inserir(insercoes[i]);
-    }
-    Ticks[1] = clock();
-    tempo[0] = ((Ticks[1] - Ticks[0]) * 1000 / CLOCKS_PER_SEC); 
-    printf ("Tempo para inserçao: %'d ms;\n", tempo[0]);
-
-    Ticks[0] = clock();
-    for (int i=0; i<buscas.size(); i++){
-	  	arvore->busca(buscas[i]);
-    }
-    Ticks[1] = clock();
-    tempo[1] = ((Ticks[1] - Ticks[0]) * 1000 / CLOCKS_PER_SEC); 
-    printf ("Tempo para busca: %'d ms;\n", tempo[1]);
-    printf ("Tempo total para operações: %'d ms;\n", tempo[1] + tempo[0]);
-
-    cout << endl;
-
-    cout << "Busca em lista duplamente encadeada com ordenação utilizando o padrão nativo do c++" << endl;
+    cout << "Busca em vector com ordenação utilizando o padrão nativo do c++" << endl;
 
     Ticks[0] = clock();
     for (int i=0; i<insercoes.size(); i++){
@@ -114,6 +92,30 @@ int main(){
     tempo[1] = ((Ticks[1] - Ticks[0]) * 1000 / CLOCKS_PER_SEC); 
     printf ("Tempo para busca: %'d ms;\n", tempo[1]);
     printf ("Tempo total para operações: %'d ms;\n", tempo[1] + tempo[0]);
+
+    values.clear();
+    cout << endl;
+
+    cout << "Árvore Red-Black" << endl;
+
+    Ticks[0] = clock();
+    for (int i=0; i<insercoes.size(); i++){
+		  arvore->inserir(insercoes[i]);
+    }
+    Ticks[1] = clock();
+    tempo[0] = ((Ticks[1] - Ticks[0]) * 1000 / CLOCKS_PER_SEC); 
+    printf ("Tempo para inserçao: %'d ms;\n", tempo[0]);
+    insercoes.clear();
+
+    Ticks[0] = clock();
+    for (int i=0; i<buscas.size(); i++){
+	  	arvore->busca(buscas[i]);
+    }
+    Ticks[1] = clock();
+    tempo[1] = ((Ticks[1] - Ticks[0]) * 1000 / CLOCKS_PER_SEC); 
+    printf ("Tempo para busca: %'d ms;\n", tempo[1]);
+    printf ("Tempo total para operações: %'d ms;\n", tempo[1] + tempo[0]);
+    
 
 	return 0;
 }
